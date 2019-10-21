@@ -14,7 +14,9 @@ ___
 3. Change esx_CryptoCustoms-master to esx_CryptoCustoms
 3. Put esx_CryptoCustoms to your resource folder.
 4. Add "start esx_CryptoCustoms" in your "server.cfg".
-5. Profit
+5. Import the sql (may already have cardealer job if so import simple-esx_CryptoCrustoms.sql)
+6. Add your custom cars you want to sell to the vehiclesaddon table matching with the vehicleaddon_categories categories
+7. Profit
 
 - You will need to move the coordniates or use https://www.gta5-mods.com/maps/los-santo-s-dealership-ymap
 
