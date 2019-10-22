@@ -1,6 +1,8 @@
 # esx_CryptoCustoms
 Custom Car dealer job based off esx_vehicleshop
 
+I didn't plan on releasing this but because of some toxic people I am forced to open source this before it hits the script black market or ends up with the wrong credits.
+
 - CarDealership garage
 - Sell custom cars to players
 - Have DEALER plate cars for employees
