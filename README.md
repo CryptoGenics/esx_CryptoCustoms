@@ -28,6 +28,6 @@ ___
 
 # Made by
 - CryptoGenics
-- Based off esx_vehicleshop https://github.com/ESX-Org/esx_ambulancejob
+- Based off esx_vehicleshop https://github.com/ESX-Org/esx_vehicleshop
 
 DO NOT RE-RELEASE WITHOUT MY DIRECT PERMISSION
