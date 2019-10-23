@@ -128,6 +128,15 @@ ESX.RegisterServerCallback('esx_CryptosCustoms:getSoldVehicles', function (sourc
 	end)
 end)
 
+ESX.RegisterServerCallback('esx_CryptosCustoms:getOutstandingBills', function (source, cb)
+
+	MySQL.Async.fetchAll('SELECT * FROM billing WHERE target = @target', {
+		['@target'] = 'society_cardealer'
+	}, function(result)
+		cb(result)
+	end)
+end)
+
 RegisterServerEvent('esx_CryptosCustoms:rentVehicle')
 AddEventHandler('esx_CryptosCustoms:rentVehicle', function (vehicle, plate, playerName, basePrice, rentPrice, target)
 	local xPlayer = ESX.GetPlayerFromId(target)
