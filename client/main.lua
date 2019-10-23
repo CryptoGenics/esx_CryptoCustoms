@@ -459,7 +459,7 @@ function OpenResellerMenu()
 					if closestPlayer == -1 or closestDistance > 3.0 then
 						ESX.ShowNotification(_U('no_players'))
 					else
-						TriggerServerEvent('36143def-0d8a-4e10-a634-b8edea8cbd63', GetPlayerServerId(closestPlayer), 'society_cardealer', _U('car_dealer'), tonumber(data2.value))
+						TriggerServerEvent('esx_billing:sendBill', GetPlayerServerId(closestPlayer), 'society_cardealer', _U('car_dealer'), tonumber(data2.value))
 					end
 				end
 			end, function (data2, menu2)
@@ -634,7 +634,7 @@ function OpenBossActionsMenu()
 			{label = _U('boss_sold'), value = 'sold_vehicles'}
 	}}, function (data, menu)
 		if data.current.value == 'boss_actions' then
-			TriggerEvent('721b6686-a341-4611-9f41-1679d630e3d2', 'cardealer', function(data2, menu2)
+			TriggerEvent('esx_society:openBossMenu', 'cardealer', function(data2, menu2)
 				menu2.close()
 			end)
 		elseif data.current.value == 'sold_vehicles' then
