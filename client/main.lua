@@ -690,7 +690,7 @@ function OpenBossActionsMenu()
 				if Config.Finance then
 
 					local elements = {
-					head = { _U('customer_client'), _U('employee_id'), _U('customer_due'), _U('customer_billed') },
+					head = { _U('customer_client'), _U('customer_client_last'), _U('employee_id'), _U('customer_due'), _U('customer_billed') },
 						rows = {}
 					}
 
@@ -698,7 +698,8 @@ function OpenBossActionsMenu()
 						table.insert(elements.rows, {
 							data = id[i],
 							cols = {
-								id[i].identifier,
+								id[i].firstname,
+								id[i].lastname,
 								id[i].sender,
 								id[i].amount,
 								id[i].original
@@ -715,7 +716,7 @@ function OpenBossActionsMenu()
 				else 
 
 					local elements = {
-						head = { _U('customer_client'), _U('employee_id'), _U('customer_due') },
+						head = { _U('customer_client'), _U('customer_client_last'), _U('employee_id'), _U('customer_due') },
 						rows = {}
 					}
 	
@@ -723,7 +724,8 @@ function OpenBossActionsMenu()
 						table.insert(elements.rows, {
 							data = id[i],
 							cols = {
-								id[i].identifier,
+								id[i].firstname,
+								id[i].lastname,
 								id[i].sender,
 								id[i].amount
 							}
