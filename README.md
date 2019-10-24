@@ -41,5 +41,6 @@ ___
 # Made by
 - CryptoGenics
 - Based off esx_vehicleshop https://github.com/ESX-Org/esx_vehicleshop
+- Plate Harvest/Craft based off old esx_drugs
 
 DO NOT RE-RELEASE WITHOUT MY DIRECT PERMISSION
