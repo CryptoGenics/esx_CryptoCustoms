@@ -43,7 +43,7 @@ Citizen.CreateThread(function ()
 		if ESX.PlayerData.job.name == 'cardealer' then
 			Config.Zones.ShopEntering.Type = 1
 
-			if Config.License then
+			if Config.LicensePlate then
 				Config.Zones.MakePlate.Type = 1
 				Config.Zones.BlankPlate.Type = 1
 			end
@@ -69,7 +69,7 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
 		if ESX.PlayerData.job.name == 'cardealer' then
 			Config.Zones.ShopEntering.Type = 1
 
-			if Config.License then
+			if Config.LicensePlate then
 				Config.Zones.MakePlate.Type = 1
 				Config.Zones.BlankPlate.Type = 1
 			end
@@ -910,7 +910,7 @@ AddEventHandler('esx:setJob', function (job)
 		if ESX.PlayerData.job.name == 'cardealer' then
 			Config.Zones.ShopEntering.Type = 1
 
-			if Config.License then
+			if Config.LicensePlate then
 				Config.Zones.MakePlate.Type = 1
 				Config.Zones.BlankPlate.Type = 1
 			end
@@ -943,7 +943,7 @@ AddEventHandler('esx_CryptosCustoms:hasEnteredMarker', function (zone)
 		end
 
 	elseif zone == 'MakePlate' then
-		if Config.License then
+		if Config.LicensePlate then
 			if Config.EnablePlayerManagement then
 				if ESX.PlayerData.job ~= nil and ESX.PlayerData.job.name == 'cardealer' then
 					CurrentAction     = 'MakePlate'
@@ -954,7 +954,7 @@ AddEventHandler('esx_CryptosCustoms:hasEnteredMarker', function (zone)
 		end
 
 	elseif zone == 'BlankPlate' then
-		if Config.License then
+		if Config.LicensePlate then
 			if Config.EnablePlayerManagement then
 				if ESX.PlayerData.job ~= nil and ESX.PlayerData.job.name == 'cardealer' then
 					CurrentAction     = 'BlankPlate'
