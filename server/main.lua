@@ -132,7 +132,7 @@ end)
 
 ESX.RegisterServerCallback('esx_CryptosCustoms:getOutstandingBills', function (source, cb)
 
-	MySQL.Async.fetchAll('SELECT * FROM billing WHERE target = @target', {
+	MySQL.Async.fetchAll('SELECT * FROM billing INNER JOIN users ON billing.identifier = users.identifier WHERE target = @target', {
 		['@target'] = 'society_cardealer'
 	}, function(result)
 		cb(result)
