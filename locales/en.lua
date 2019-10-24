@@ -59,9 +59,13 @@ Locales['en'] = {
 
   -- sold vehicles
   ['boss_sold']               = 'list of sold vehicles',
+  ['billed_vehicles']         = 'Outstanding Bills',
   ['customer_client']         = 'customer name',
   ['customer_model']          = 'car model',
   ['customer_plate']          = 'car plate',
   ['customer_soldby']         = 'sold by',
   ['customer_date']           = 'date',
+  ['employee_id']             = 'sold by',
+  ['customer_due']            = 'Still due',
+  ['customer_billed']         = 'Billed for',
 }
