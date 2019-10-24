@@ -5,6 +5,8 @@ Config.EnablePlayerManagement     = true -- enables the actual car dealer job. Y
 Config.EnableOwnedVehicles        = true
 Config.EnableSocietyOwnedVehicles = false -- use with EnablePlayerManagement disabled, or else it wont have any effects
 
+Config.Finance			  = false -- using Cryptos esx_finance?
+
 Config.Locale                     = 'en'
 
 Config.PlateLetters  = 2
