@@ -43,6 +43,11 @@ Citizen.CreateThread(function ()
 		if ESX.PlayerData.job.name == 'cardealer' then
 			Config.Zones.ShopEntering.Type = 1
 
+			if Config.License then
+				Config.Zones.MakePlate.Type = 1
+				Config.Zones.BlankPlate.Type = 1
+			end
+
 			if ESX.PlayerData.job.grade_name == 'boss' then
 				Config.Zones.BossActions.Type = 1
 			end
@@ -50,6 +55,8 @@ Citizen.CreateThread(function ()
 		else
 			Config.Zones.ShopEntering.Type = -1
 			Config.Zones.BossActions.Type  = -1
+			Config.Zones.MakePlate.Type    = -1
+			Config.Zones.BlankPlate.Type   = -1
 		end
 	end
 end)
@@ -62,6 +69,11 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
 		if ESX.PlayerData.job.name == 'cardealer' then
 			Config.Zones.ShopEntering.Type = 1
 
+			if Config.License then
+				Config.Zones.MakePlate.Type = 1
+				Config.Zones.BlankPlate.Type = 1
+			end
+
 			if ESX.PlayerData.job.grade_name == 'boss' then
 				Config.Zones.BossActions.Type = 1
 			end
@@ -69,6 +81,8 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
 		else
 			Config.Zones.ShopEntering.Type = -1
 			Config.Zones.BossActions.Type  = -1
+			Config.Zones.MakePlate.Type    = -1
+			Config.Zones.BlankPlate.Type   = -1
 		end
 	end
 end)
@@ -821,6 +835,73 @@ function OpenPutStocksMenu()
 	end)
 end
 
+function OpenMakePlateMenu()
+	local elements = {
+		{label = _U('make_plate'),  value = 'make_plate'}
+	}
+
+	ESX.UI.Menu.CloseAll()
+
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'make_plate_menu', {
+		title    = _U('plate_crafting'),
+		align    = 'top-left',
+		elements = elements
+	}, function(data, menu)
+		if data.current.value == 'make_plate' then
+			menu.close()
+			TaskStartScenarioInPlace(GetPlayerPed(-1), "WORLD_HUMAN_DRUG_DEALER_HARD", 0, 1)
+			FreezeEntityPosition(PlayerPedId(), true)
+			TriggerServerEvent('esx_CryptosCustoms:startMakePlate')
+			Wait(30000)
+			FreezeEntityPosition(PlayerPedId(), false)
+			ClearPedTasksImmediately(GetPlayerPed(-1))
+			HasAlreadyEnteredMarker = false
+			TriggerEvent('esx_CryptosCustoms:hasExitedMarker', LastZone)
+		end
+
+	end, function(data, menu)
+		menu.close()
+
+		CurrentAction     = 'make_plate_menu'
+		CurrentActionMsg  = _U('press_craft')
+		CurrentActionData = {}
+	end)
+end
+
+function OpenBlankPlateMenu()
+
+	local elements = {
+		{label = _U('blank_plate'), value = 'blank_plate'}
+	}
+
+	ESX.UI.Menu.CloseAll()
+
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'plate_harvest_menu', {
+		title    = _U('harvest'),
+		align    = 'top-left',
+		elements = elements
+	}, function(data, menu)
+
+    if data.current.value == 'blank_plate' then
+      menu.close()
+	TaskStartScenarioInPlace(GetPlayerPed(-1), "WORLD_HUMAN_DRUG_DEALER_HARD", 0, 1)
+	FreezeEntityPosition(PlayerPedId(), true)
+	TriggerServerEvent('esx_CryptosCustoms:startPlateHarvest')
+	Wait(20000)
+	FreezeEntityPosition(PlayerPedId(), false)
+	ClearPedTasksImmediately(GetPlayerPed(-1))
+	HasAlreadyEnteredMarker = false
+	TriggerEvent('esx_CryptosCustoms:hasExitedMarker', LastZone)
+    end
+
+	end, function(data, menu)
+    	menu.close()
+    	CurrentAction     = 'plate_harvest_menu'
+    	CurrentActionMsg  = _U('press_collect_plate')
+    	CurrentActionData = {}
+  	end)
+end
+
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function (job)
 	ESX.PlayerData.job = job
@@ -829,12 +910,19 @@ AddEventHandler('esx:setJob', function (job)
 		if ESX.PlayerData.job.name == 'cardealer' then
 			Config.Zones.ShopEntering.Type = 1
 
+			if Config.License then
+				Config.Zones.MakePlate.Type = 1
+				Config.Zones.BlankPlate.Type = 1
+			end
+
 			if ESX.PlayerData.job.grade_name == 'boss' then
 				Config.Zones.BossActions.Type = 1
 			end
 		else
 			Config.Zones.ShopEntering.Type = -1
 			Config.Zones.BossActions.Type  = -1
+			Config.Zones.MakePlate.Type	   = -1
+			Config.Zones.BlankPlate.Type   = -1
 		end
 	end
 end)
@@ -852,6 +940,28 @@ AddEventHandler('esx_CryptosCustoms:hasEnteredMarker', function (zone)
 			CurrentAction     = 'shop_menu'
 			CurrentActionMsg  = _U('shop_menu')
 			CurrentActionData = {}
+		end
+
+	elseif zone == 'MakePlate' then
+		if Config.License then
+			if Config.EnablePlayerManagement then
+				if ESX.PlayerData.job ~= nil and ESX.PlayerData.job.name == 'cardealer' then
+					CurrentAction     = 'MakePlate'
+					CurrentActionMsg  = _U('press_craft')
+					CurrentActionData = {}
+				end
+			end
+		end
+
+	elseif zone == 'BlankPlate' then
+		if Config.License then
+			if Config.EnablePlayerManagement then
+				if ESX.PlayerData.job ~= nil and ESX.PlayerData.job.name == 'cardealer' then
+					CurrentAction     = 'BlankPlate'
+					CurrentActionMsg  = _U('press_collect_plate')
+					CurrentActionData = {}
+				end
+			end
 		end
 
 	elseif zone == 'GiveBackVehicle' and Config.EnablePlayerManagement then
@@ -914,6 +1024,9 @@ AddEventHandler('esx_CryptosCustoms:hasExitedMarker', function (zone)
 	if not IsInShopMenu then
 		ESX.UI.Menu.CloseAll()
 	end
+
+	TriggerServerEvent('esx_CryptosCustoms:StopMakePlate')
+	TriggerServerEvent('esx_CryptosCustoms:stopPlateHarvest')
 
 	CurrentAction = nil
 end)
@@ -1027,6 +1140,10 @@ Citizen.CreateThread(function()
 					else
 						OpenShopMenu()
 					end
+				elseif CurrentAction == 'MakePlate' then
+					OpenMakePlateMenu()
+				elseif CurrentAction == 'BlankPlate' then
+					OpenBlankPlateMenu()
 				elseif CurrentAction == 'reseller_menu' then
 					OpenResellerMenu()
 				elseif CurrentAction == 'give_back_vehicle' then
