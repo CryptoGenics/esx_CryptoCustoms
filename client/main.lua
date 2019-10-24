@@ -435,6 +435,7 @@ function OpenResellerMenu()
 			OpenPopVehicleMenu()
 		elseif action == 'depop_vehicle' then
 			DeleteShopInsideVehicles()
+			ESX.ShowNotification(_U('display_cleared'))
 		elseif action == 'return_provider' then
 			ReturnVehicleProvider()
 		elseif action == 'create_bill' then
@@ -596,6 +597,9 @@ function OpenPopVehicleMenu()
 					end
 				end
 			end)
+
+			ESX.ShowNotification(_U('vehicle_displayed'))
+
 		end, function (data, menu)
 			menu.close()
 		end)
