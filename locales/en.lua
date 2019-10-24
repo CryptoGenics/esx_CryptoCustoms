@@ -70,4 +70,16 @@ Locales['en'] = {
   ['employee_id']             = 'sold by',
   ['customer_due']            = 'Still due',
   ['customer_billed']         = 'Billed for',
+
+   --custom plates
+  ['took_blank']               = 'Took 1 blank plate',
+  ['you_do_not_room']         = 'No more room for this',
+  ['made_plate']         = 'Made 1 Custom Plate',
+  ['not_enough_blank']          = 'No blank plates to use',
+  ['blank_plate']          = 'Blank Licenseplate',
+  ['harvest']         = 'Collect Blanks',
+  ['press_collect_plate']           = 'Press ~INPUT_CONTEXT~ to collect blank plates',
+  ['press_craft']             = 'Press ~INPUT_CONTEXT~ to make custom plate',
+  ['plate_crafting']            = 'Custom Plate Crafting',
+  ['make_plate']         = 'Custom Licenseplate',
 }
