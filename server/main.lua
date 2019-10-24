@@ -1,6 +1,8 @@
 ESX              = nil
 local Categories = {}
 local Vehicles   = {}
+local PlayersTransforming  = {}
+local PlayersHarvesting  = {}
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
@@ -474,4 +476,78 @@ AddEventHandler('esx_CryptosCustoms:setJobVehicleState', function(plate, state)
 			print(('esx_CryptosCustoms: %s exploited the garage!'):format(xPlayer.identifier))
 		end
 	end)
+end)
+
+
+--Make License Plates
+local function Transform(source)
+
+	if PlayersTransforming[source] == true then
+
+		local xPlayer  = ESX.GetPlayerFromId(source)
+      		local blankQuantity = xPlayer.getInventoryItem('blank_plate').count
+
+		if blankQuantity < 1 then
+			TriggerClientEvent('esx:showNotification', source, _U('not_enough_blank'))
+       		return
+      	else
+        	--TriggerClientEvent('pNotify:SendNotification', source, {text = "Making Plate", type = "success", timeout = 30000, layout = "bottomCenter"})
+
+			SetTimeout(30000, function()
+            		xPlayer.removeInventoryItem('blank_plate', 1)
+
+			xPlayer.addInventoryItem('licenseplate', 1)
+			TriggerClientEvent('esx:showNotification', source, _U('made_plate'))
+			end)
+		end
+
+	end	
+end
+
+RegisterServerEvent('esx_CryptosCustoms:startMakePlate')
+AddEventHandler('esx_CryptosCustoms:startMakePlate', function(part)
+	local _source = source
+	PlayersTransforming[_source] = true
+	Transform(source)
+end)
+
+RegisterServerEvent('esx_CryptosCustoms:stopMakePlate')
+AddEventHandler('esx_CryptosCustoms:stopMakePlate', function()
+	local _source = source
+	PlayersTransforming[_source] = false		
+end)
+
+-- Blank plate collection
+
+local function Harvest(source)
+  --TriggerClientEvent('pNotify:SendNotification', source, {text = "Collecting Blank Plates", type = "success", timeout = 20000, layout = "bottomCenter"})
+
+	SetTimeout(20000, function()
+
+		if PlayersHarvesting[source] == true then
+			local xPlayer = ESX.GetPlayerFromId(source)
+      			local plate = xPlayer.getInventoryItem('blank_plate')
+
+     			if plate.limit ~= -1 and plate.count >= plate.limit then
+				TriggerClientEvent('esx:showNotification', source, _U('you_do_not_room'))
+			else
+				xPlayer.addInventoryItem('blank_plate', 1)
+				TriggerClientEvent('esx:showNotification', source, _U('took_blank'))
+			end
+		end
+
+	end)
+end
+
+RegisterServerEvent('esx_CryptosCustoms:startPlateHarvest')
+AddEventHandler('esx_CryptosCustoms:startPlateHarvest', function()
+	local _source = source
+	PlayersHarvesting[_source] = true
+	Harvest(source)
+end)
+
+RegisterServerEvent('esx_CryptosCustoms:stopPlateHarvest')
+AddEventHandler('esx_CryptosCustoms:stopPlateHarvest', function()
+	local _source = source
+    PlayersHarvesting[_source] = false
 end)
