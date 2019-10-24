@@ -6,7 +6,7 @@ Config.EnableOwnedVehicles        = true
 Config.EnableSocietyOwnedVehicles = false -- use with EnablePlayerManagement disabled, or else it wont have any effects
 
 Config.Finance			  = false -- using Cryptos esx_finance?
-Config.License			  = false  -- using jsfour-licenseplate?
+Config.LicensePlate 		  = false  -- using jsfour-licenseplate?
 
 Config.Locale                     = 'en'
 
