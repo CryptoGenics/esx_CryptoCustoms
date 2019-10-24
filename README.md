@@ -10,6 +10,10 @@ Included:
 - Sell custom cars to players
 - Have DEALER plate cars for employees
 - Bill Player / Sell Car / Buy Car / DEALER plate to employee all in one menu
+- Boss can see outstanding bills
+- other options for employees/boss
+- esx_finanace support
+- jsfour-licenseplate support (licenseplate crafting)
 - other options for employees/boss
 ___
 
@@ -21,13 +25,18 @@ ___
 4. Add "start esx_CryptoCustoms" in your "server.cfg".
 5. Import the sql (may already have cardealer job if so import simple-esx_CryptoCrustoms.sql)
 6. Add your custom cars you want to sell to the vehiclesaddon table matching with the vehicleaddon_categories categories
-7. Profit
+7. If using LicensePlate crafting import blank_plate.sql
+8. Profit
 
 - You will need to move the coordinates or use https://www.gta5-mods.com/maps/los-santo-s-dealership-ymap
 
 # Required resource
 - esx_vehicleshop
 - es_extended
+
+# Optional resource
+- esx_finance https://github.com/CryptoGenics/esx_finance
+- jsfour-licenseplate https://github.com/jonassvensson4/jsfour-licenseplate
 
 # Made by
 - CryptoGenics
