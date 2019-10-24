@@ -631,7 +631,8 @@ function OpenBossActionsMenu()
 		align    = 'top-left',
 		elements = {
 			{label = _U('boss_actions'), value = 'boss_actions'},
-			{label = _U('boss_sold'), value = 'sold_vehicles'}
+			{label = _U('boss_sold'), value = 'sold_vehicles'},
+			{label = _U('billed_vehicles'), value = 'billed_vehicles'}
 	}}, function (data, menu)
 		if data.current.value == 'boss_actions' then
 			TriggerEvent('esx_society:openBossMenu', 'cardealer', function(data2, menu2)
@@ -663,6 +664,61 @@ function OpenBossActionsMenu()
 				end, function(data2, menu2)
 					menu2.close()
 				end)
+			end)
+
+		elseif data.current.value == 'billed_vehicles' then
+
+			ESX.TriggerServerCallback('esx_CryptosCustoms:getOutstandingBills', function(id)
+				if Config.Finance then
+
+					local elements = {
+					head = { _U('customer_client'), _U('employee_id'), _U('customer_due'), _U('customer_billed') },
+						rows = {}
+					}
+
+					for i=1, #id, 1 do
+						table.insert(elements.rows, {
+							data = id[i],
+							cols = {
+								id[i].identifier,
+								id[i].sender,
+								id[i].amount,
+								id[i].original
+							}
+						})
+					end
+
+					ESX.UI.Menu.Open('list', GetCurrentResourceName(), 'billed_vehicles', elements, function(data2, menu2)
+
+					end, function(data2, menu2)
+						menu2.close()
+					end)
+
+				else 
+
+					local elements = {
+						head = { _U('customer_client'), _U('employee_id'), _U('customer_due') },
+						rows = {}
+					}
+	
+					for i=1, #id, 1 do
+						table.insert(elements.rows, {
+							data = id[i],
+							cols = {
+								id[i].identifier,
+								id[i].sender,
+								id[i].amount
+							}
+						})
+					end
+
+					ESX.UI.Menu.Open('list', GetCurrentResourceName(), 'billed_vehicles', elements, function(data2, menu2)
+
+					end, function(data2, menu2)
+						menu2.close()
+					end)
+
+				end
 			end)
 		end
 
